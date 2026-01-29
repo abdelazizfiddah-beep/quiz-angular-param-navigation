@@ -1,0 +1,25 @@
+<div class="container my-5">
+  <h2 class="mb-3">Quiz</h2>
+
+  <form [formGroup]="formulaire" (ngSubmit)="submitQuiz()">
+    @for (question of questions; let i = $index; track i) {
+    <div class="mb-4">
+      <p class="fw-bold">
+        Question {{ i + 1 }} :
+        <span [innerHTML]="question.question"></span>
+      </p>
+
+      @for (reponse of getAnswers(question); track reponse) {
+      <label class="d-block">
+        <input type="radio" class="form-check-input me-2" [value]="reponse" [formControlName]="'q' + i" required />
+        <span [innerHTML]="reponse"></span>
+      </label>
+      }
+    </div>
+    }
+
+    <button type="submit" class="btn btn-success" [disabled]="formulaire.invalid">
+      Valider mes réponses
+    </button>
+  </form>
+</div>

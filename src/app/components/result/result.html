@@ -1,0 +1,61 @@
+<div class="container my-5 text-center">
+  @if (total > 0) {
+  <h2>Résultat</h2>
+  <p class="fs-4">
+    Ton score est de <strong>{{ score }}</strong> / {{ total }}
+  </p>
+
+  <button class="btn btn-primary mt-3 mb-4" (click)="goHome()">
+    Refaire un quiz
+  </button>
+
+  <h3 class="mt-4 mb-3">Historique des scores</h3>
+
+  @if (scores.length === 0) {
+  <p>Aucun score enregistré pour le moment.</p>
+  } @else {
+  <ul class="list-group text-start mb-4">
+    @for (item of scores; let i = $index; track i) {
+    <li class="list-group-item">
+      {{ item.date }} – {{ item.score }} / {{ item.total }}
+    </li>
+    }
+  </ul>
+  }
+
+  <h3 class="mt-4 mb-3">Détail des réponses (dernière partie)</h3>
+
+  @if (details.length === 0) {
+  <p>Aucun détail disponible.</p>
+  } @else {
+  <div class="text-start">
+    @for (d of details; let i = $index; track i) {
+    <div class="mb-3">
+      <p class="fw-bold">
+        Question {{ i + 1 }} :
+        <span [innerHTML]="d.question"></span>
+      </p>
+
+      <p>
+        Ta réponse :
+        <span [innerHTML]="d.userAnswer || 'Aucune réponse'"></span>
+      </p>
+
+      <p>
+        Bonne réponse :
+        <span [innerHTML]="d.correctAnswer"></span>
+      </p>
+
+      @if (!d.isCorrect) {
+      <p class="text-danger">Tu t'es trompé sur cette question.</p>
+      } @else {
+      <p class="text-success">Bonne réponse.</p>
+      }
+    </div>
+    }
+  </div>
+  }
+  } @else {
+  <p>Redirection...</p>
+  }
+</div>
